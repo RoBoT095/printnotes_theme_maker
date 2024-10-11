@@ -37,7 +37,7 @@ class _ColorPickerViewState extends State<ColorPickerView> {
   void _exportColorScheme() {
     ColorScheme c = widget.colorScheme;
     String newColorScheme =
-        'brightness: Brightness.${isDark ? 'dark' : 'light'}, primary: ${c.primary}, onPrimary: ${c.onPrimary}, secondary: ${c.secondary}, onSecondary: ${c.onSecondary}, surface: ${c.surface}, onSurface: ${c.onSurface}, surfaceContainer: ${c.surfaceContainer},';
+        '{"brightness": ${c.brightness.index}, "primary": ${c.primary.value}, "onPrimary": ${c.onPrimary.value}, "secondary": ${c.secondary.value}, "onSecondary": ${c.onSecondary.value}, "surface": ${c.surface.value}, "onSurface": ${c.onSurface.value}, "surfaceContainer": ${c.surfaceContainer.value}}';
     setState(() => text = newColorScheme);
   }
 
