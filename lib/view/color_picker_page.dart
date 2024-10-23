@@ -137,7 +137,7 @@ class _ColorPickerViewState extends State<ColorPickerView> {
         ),
         const Center(
             child: Text(
-          'Once you are done, export and share!\nImporting themes to app directly might be added in the future',
+          'Once you are done, export and paste into app, or share with others!',
           textAlign: TextAlign.center,
         )),
         Card(
@@ -163,6 +163,14 @@ class _ColorPickerViewState extends State<ColorPickerView> {
                       )),
                 ],
               )),
+        ),
+        const Padding(
+          padding: EdgeInsets.all(15.0),
+          child: Center(
+              child: Text(
+            'To use theme in Print(Notes) app, go to Settings, scroll to "Styles" and change Color Scheme to "Custom", then select Custom Color Scheme button, and paste string in "Theme Management"',
+            textAlign: TextAlign.center,
+          )),
         ),
       ],
     );
