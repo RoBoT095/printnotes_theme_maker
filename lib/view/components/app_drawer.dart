@@ -32,7 +32,7 @@ class DrawerView extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Image.asset(
-                          "assets/app_icon_no-bg.png",
+                          "app_icon_no-bg.png",
                           height: 64,
                         ),
                         Text(
@@ -61,17 +61,17 @@ class DrawerView extends StatelessWidget {
                 title: const Text('Archive'),
                 onTap: () {},
               ),
+              ListTile(
+                iconColor: Theme.of(context).colorScheme.secondary,
+                leading: const Icon(Icons.sync),
+                title: const Text('Trash'),
+                onTap: () {},
+              ),
               const Opacity(opacity: 0.2, child: Divider()),
               ListTile(
                 iconColor: Theme.of(context).colorScheme.secondary,
                 leading: const Icon(Icons.settings_outlined),
                 title: const Text('Settings'),
-                onTap: () {},
-              ),
-              ListTile(
-                iconColor: Theme.of(context).colorScheme.secondary,
-                leading: const Icon(Icons.sync),
-                title: const Text('Sync'),
                 onTap: () {},
               ),
               ListTile(
@@ -87,7 +87,7 @@ class DrawerView extends StatelessWidget {
           title: Opacity(
             opacity: 0.5,
             child: Text(
-              'Version: 0.9.3',
+              'Version: 0.9.8',
               textAlign: TextAlign.center,
             ),
           ),

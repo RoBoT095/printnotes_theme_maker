@@ -49,7 +49,7 @@ class AppDisplay extends StatelessWidget {
               Expanded(
                   child: Scaffold(
                 appBar: AppBar(
-                  title: const Text('Theme Maker'),
+                  title: const Text('Theme Designer'),
                 ),
                 body: colorPickerView(theme),
               )),
@@ -58,7 +58,7 @@ class AppDisplay extends StatelessWidget {
           )
         : Scaffold(
             appBar: AppBar(
-              title: const Text('Theme Maker'),
+              title: const Text('Theme Designer'),
             ),
             body: const AppMainPage(),
             floatingActionButtonLocation:

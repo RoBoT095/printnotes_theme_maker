@@ -21,6 +21,7 @@ dependencies:
   markdown: ^7.2.2
   flex_color_picker: ^3.6.0
   provider: ^6.1.2
+  animated_tree_view: ^2.3.0
 
 dev_dependencies:
   flutter_test:

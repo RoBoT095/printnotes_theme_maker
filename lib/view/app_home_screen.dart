@@ -12,7 +12,7 @@ class AppMainPage extends StatefulWidget {
 }
 
 class _AppMainPageState extends State<AppMainPage> {
-  bool isGrid = true;
+  String currentLayout = "grid";
   final String appTitle = 'Print(Notes)';
 
   @override
@@ -30,11 +30,19 @@ class _AppMainPageState extends State<AppMainPage> {
               Expanded(
                 child: MainScaffold(
                   title: appTitle,
-                  isGrid: () {
-                    setState(() => isGrid = !isGrid);
+                  layoutChange: () {
+                    setState(() {
+                      if (currentLayout == 'grid') {
+                        currentLayout = 'list';
+                      } else if (currentLayout == 'list') {
+                        currentLayout = 'tree';
+                      } else if (currentLayout == 'tree') {
+                        currentLayout = 'grid';
+                      }
+                    });
                   },
                   body: NotesDisplay(
-                    isLayoutGrid: isGrid,
+                    currentLayout: currentLayout,
                   ),
                 ),
               ),
@@ -48,11 +56,19 @@ class _AppMainPageState extends State<AppMainPage> {
                   borderRadius: BorderRadius.all(Radius.zero)),
               child: const DrawerView(),
             ),
-            isGrid: () {
-              setState(() => isGrid = !isGrid);
+            layoutChange: () {
+              setState(() {
+                if (currentLayout == 'grid') {
+                  currentLayout = 'list';
+                } else if (currentLayout == 'list') {
+                  currentLayout = 'tree';
+                } else if (currentLayout == 'tree') {
+                  currentLayout = 'grid';
+                }
+              });
             },
             body: NotesDisplay(
-              isLayoutGrid: isGrid,
+              currentLayout: currentLayout,
             ),
           );
   }

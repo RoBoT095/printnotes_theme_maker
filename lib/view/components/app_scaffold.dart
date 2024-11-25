@@ -4,13 +4,13 @@ class MainScaffold extends StatefulWidget {
   const MainScaffold({
     super.key,
     required this.title,
-    required this.isGrid,
+    required this.layoutChange,
     required this.body,
     this.drawer,
   });
 
   final String title;
-  final VoidCallback isGrid;
+  final VoidCallback layoutChange;
   final Widget body;
   final Widget? drawer;
 
@@ -34,7 +34,7 @@ class _MainScaffoldState extends State<MainScaffold> {
                       Theme.of(context).colorScheme.onSecondary),
                   foregroundColor: WidgetStatePropertyAll<Color>(
                       Theme.of(context).colorScheme.secondary)),
-              onPressed: () => setState(() => widget.isGrid()),
+              onPressed: () => setState(() => widget.layoutChange()),
               child: const Row(
                 children: [
                   Icon(Icons.grid_view),
