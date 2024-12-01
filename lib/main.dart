@@ -22,7 +22,7 @@ class App extends StatelessWidget {
       builder: (context, themeProvider, child) => MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: themeDataFromColorScheme(themeProvider.colorScheme),
-        title: 'Print(Notes) Theme Maker',
+        title: 'Print(Notes) Theme Designer',
         home: AppDisplay(theme: themeProvider),
       ),
     );
