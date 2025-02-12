@@ -30,6 +30,7 @@ class _ColorTileState extends State<ColorTile> {
       onColorChanged: (Color color) => setState(() => _color = color),
       width: 40,
       height: 40,
+      hasBorder: true,
       heading: Text(
         'Select color',
         style: Theme.of(context).textTheme.titleSmall,
@@ -38,6 +39,13 @@ class _ColorTileState extends State<ColorTile> {
         'Selected color and its shade',
         style: Theme.of(context).textTheme.titleSmall,
       ),
+      showColorCode: true,
+      colorCodeHasColor: true,
+      showColorName: true,
+      copyPasteBehavior: const ColorPickerCopyPasteBehavior(
+        copyFormat: ColorPickerCopyFormat.numHexRRGGBB,
+        parseShortHexCode: true,
+      ),
       pickersEnabled: const <ColorPickerType, bool>{
         ColorPickerType.both: false,
         ColorPickerType.primary: false,
@@ -45,6 +53,10 @@ class _ColorTileState extends State<ColorTile> {
         ColorPickerType.custom: true,
         ColorPickerType.wheel: true,
       },
+      actionButtons: const ColorPickerActionButtons(
+        dialogActionButtons: true,
+        dialogActionIcons: true,
+      ),
     ).showPickerDialog(context);
   }
 

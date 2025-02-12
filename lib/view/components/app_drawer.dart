@@ -87,7 +87,7 @@ class DrawerView extends StatelessWidget {
           title: Opacity(
             opacity: 0.5,
             child: Text(
-              'Version: 0.9.8',
+              'Version: 0.9.13',
               textAlign: TextAlign.center,
             ),
           ),
