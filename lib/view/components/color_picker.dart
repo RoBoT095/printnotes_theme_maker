@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flex_color_picker/flex_color_picker.dart';
 
 class ColorTile extends StatefulWidget {
-  final Color initialColor;
+  final Color color;
   final ValueChanged<Color> onColorChange;
 
   const ColorTile({
     super.key,
-    required this.initialColor,
+    required this.color,
     required this.onColorChange,
   });
 
@@ -16,12 +16,20 @@ class ColorTile extends StatefulWidget {
 }
 
 class _ColorTileState extends State<ColorTile> {
-  Color _color = Colors.transparent;
+  late Color _color;
 
   @override
   void initState() {
     super.initState();
-    _color = widget.initialColor;
+    _color = widget.color;
+  }
+
+  @override
+  void didUpdateWidget(ColorTile oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.color != widget.color) {
+      _color = widget.color;
+    }
   }
 
   Future<bool> showColorPickerDialog() async {

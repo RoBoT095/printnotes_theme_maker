@@ -13,6 +13,11 @@ class TreeLayoutView extends StatelessWidget {
         for (var item in items)
           if (item["type"] == 'folder')
             FolderNode(data: TFolder(item['name']!))
+              ..addAll([
+                FileNode(
+                    data: TFile(items.indexOf(item).isOdd ? 'Image' : 'PDF',
+                        type: items.indexOf(item).isOdd ? "image" : 'pdf'))
+              ])
           else if (item["type"] == 'file')
             FileNode(data: TFile(item["name"]!, type: item["type"]!))
       ];
@@ -48,28 +53,29 @@ class TreeLayoutView extends StatelessWidget {
 
 extension on ExplorableNode {
   Icon icon(context) {
+    ColorScheme colorScheme = Theme.of(context).colorScheme;
     if (isRoot) return const Icon(Icons.data_object);
 
     if (this is FolderNode) {
       if (isExpanded) {
         return Icon(
           Icons.folder_open,
-          color: Theme.of(context).colorScheme.secondary,
+          color: colorScheme.secondary,
         );
       }
       return Icon(
         Icons.folder,
-        color: Theme.of(context).colorScheme.secondary,
+        color: colorScheme.secondary,
       );
     }
 
     if (this is FileNode) {
       final file = data as TFile;
       if (file.type == 'image') {
-        return Icon(
-          Icons.image_outlined,
-          color: Theme.of(context).colorScheme.primary,
-        );
+        return Icon(Icons.image_outlined, color: colorScheme.primary);
+      }
+      if (file.type == 'pdf') {
+        return Icon(Icons.picture_as_pdf, color: colorScheme.primary);
       }
     }
 

@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:markdown_widget/markdown_widget.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
+import 'package:printnotes_theme_maker/providers/settings_provider.dart';
 import 'package:printnotes_theme_maker/view/components/markdown/build_markdown.dart';
 
 class GridListView extends StatelessWidget {
-  const GridListView({
-    super.key,
-    required this.items,
-    required this.currentLayout,
-  });
+  const GridListView({super.key, required this.items});
 
   final List<Map<String, String>> items;
-  final String currentLayout;
 
   Widget _buildGridItem(BuildContext context, int index) {
     final item = items[index];
@@ -68,7 +65,8 @@ class GridListView extends StatelessWidget {
         SliverPadding(
           padding: const EdgeInsets.all(8),
           sliver: SliverMasonryGrid.count(
-            crossAxisCount: currentLayout == 'list' ? 1 : 2,
+            crossAxisCount:
+                context.watch<SettingsProvider>().layout == 'list' ? 1 : 2,
             mainAxisSpacing: 4,
             crossAxisSpacing: 4,
             childCount: items.length,

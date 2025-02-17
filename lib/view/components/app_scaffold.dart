@@ -1,40 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class MainScaffold extends StatefulWidget {
+import 'package:printnotes_theme_maker/providers/settings_provider.dart';
+
+class MainScaffold extends StatelessWidget {
   const MainScaffold({
     super.key,
-    required this.title,
-    required this.layoutChange,
     required this.body,
     this.drawer,
   });
 
-  final String title;
-  final VoidCallback layoutChange;
   final Widget body;
   final Widget? drawer;
 
   @override
-  State<MainScaffold> createState() => _MainScaffoldState();
-}
-
-class _MainScaffoldState extends State<MainScaffold> {
-  @override
   Widget build(BuildContext context) {
+    ColorScheme colorScheme = Theme.of(context).colorScheme;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.surface,
-        foregroundColor: Theme.of(context).colorScheme.onSurface,
+        backgroundColor: colorScheme.surface,
+        foregroundColor: colorScheme.onSurface,
         scrolledUnderElevation: 0,
-        title: Text(widget.title),
+        title: const Text('Print(Notes)'),
         actions: [
           ElevatedButton(
               style: ButtonStyle(
-                  backgroundColor: WidgetStatePropertyAll<Color>(
-                      Theme.of(context).colorScheme.onSecondary),
-                  foregroundColor: WidgetStatePropertyAll<Color>(
-                      Theme.of(context).colorScheme.secondary)),
-              onPressed: () => setState(() => widget.layoutChange()),
+                  backgroundColor:
+                      WidgetStatePropertyAll<Color>(colorScheme.secondary),
+                  foregroundColor:
+                      WidgetStatePropertyAll<Color>(colorScheme.onSecondary)),
+              onPressed: () => context.read<SettingsProvider>().setLayout(),
               child: const Row(
                 children: [
                   Icon(Icons.grid_view),
@@ -43,8 +38,8 @@ class _MainScaffoldState extends State<MainScaffold> {
               )),
         ],
       ),
-      drawer: widget.drawer,
-      body: widget.body,
+      drawer: drawer,
+      body: body,
     );
   }
 }

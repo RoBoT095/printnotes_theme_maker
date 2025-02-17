@@ -2,9 +2,7 @@
 
 [![GitHub](https://img.shields.io/github/license/RoBoT095/printnotes_theme_maker)](https://github.com/RoBoT095/printnotes_theme_maker/blob/main/LICENSE)
 
-Make themes from this webpage and import string into the [Print(Notes)](https://github.com/RoBoT095/printnotes) app for your own custom look!
-
-**Note**: Still need to add feature to the app itself.
+Make themes from this [webpage](https://design.printnotes.app) and import string into the [Print(Notes)](https://github.com/RoBoT095/printnotes) app for your own custom look!
 
 <details open>
 <summary>Images</summary>

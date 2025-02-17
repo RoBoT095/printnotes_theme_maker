@@ -13,7 +13,8 @@ import 'package:printnotes_theme_maker/view/components/markdown/rendering/note_t
 
 MarkdownConfig theMarkdownConfigs(BuildContext context,
     {bool? hideCodeButtons}) {
-  final isDark = Theme.of(context).colorScheme.brightness == Brightness.dark;
+  ColorScheme colorScheme = Theme.of(context).colorScheme;
+  final isDark = colorScheme.brightness == Brightness.dark;
 
   codeWrapper(child, text, language) => CodeWrapperWidget(
         child,
@@ -23,8 +24,7 @@ MarkdownConfig theMarkdownConfigs(BuildContext context,
       );
 
   return MarkdownConfig.defaultConfig.copy(configs: [
-    PConfig(
-        textStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface)),
+    PConfig(textStyle: TextStyle(color: colorScheme.onSurface)),
     CheckBoxConfig(builder: (checked) => markdownCheckBox(checked)),
     TableConfig(
         wrapper: (table) => SingleChildScrollView(
@@ -33,11 +33,11 @@ MarkdownConfig theMarkdownConfigs(BuildContext context,
             )),
     HrConfig(
       height: 2,
-      color: Theme.of(context).colorScheme.onSurface.withOpacity(0.2),
+      color: colorScheme.onSurface.withOpacity(0.2),
     ),
     BlockquoteConfig(
-      textColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.8),
-      sideColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.3),
+      textColor: colorScheme.onSurface.withOpacity(0.8),
+      sideColor: colorScheme.onSurface.withOpacity(0.3),
     ),
     isDark
         ? PreConfig.darkConfig.copy(theme: a11yDarkTheme, wrapper: codeWrapper)
@@ -48,17 +48,15 @@ MarkdownConfig theMarkdownConfigs(BuildContext context,
 MarkdownGenerator theMarkdownGenerators(context,
     {double? textScale, bool useLatex = false}) {
   // Not an elegant way to customize, but it works
-  final isDark = Theme.of(context).colorScheme.brightness == Brightness.dark;
+  ColorScheme colorScheme = Theme.of(context).colorScheme;
+  final isDark = colorScheme.brightness == Brightness.dark;
   SpanNodeGeneratorWithTag noteTagGenerator = SpanNodeGeneratorWithTag(
       tag: 'noteTag',
       generator: (e, config, visitor) => NoteTagNode(
             e.attributes,
             config,
-            tagBackgroundColor:
-                Theme.of(context).colorScheme.primary.withOpacity(0.3),
-            tagTextColor: isDark
-                ? Theme.of(context).colorScheme.secondary
-                : Theme.of(context).colorScheme.primary,
+            tagBackgroundColor: colorScheme.primary.withOpacity(0.3),
+            tagTextColor: isDark ? colorScheme.secondary : colorScheme.primary,
           ));
 
   return MarkdownGenerator(

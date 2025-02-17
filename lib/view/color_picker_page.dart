@@ -1,18 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+
+import 'package:printnotes_theme_maker/providers/theme_provider.dart';
 import 'package:printnotes_theme_maker/view/components/color_picker.dart';
 
 class ColorPickerView extends StatefulWidget {
-  const ColorPickerView({
-    super.key,
-    required this.onColorChanged,
-    required this.onBrightnessChanged,
-    required this.colorScheme,
-  });
-
-  final Function(Color color, String property) onColorChanged;
-  final Function(Brightness brightness) onBrightnessChanged;
-  final ColorScheme colorScheme;
+  const ColorPickerView({super.key});
 
   @override
   State<ColorPickerView> createState() => _ColorPickerViewState();
@@ -20,22 +14,18 @@ class ColorPickerView extends StatefulWidget {
 
 class _ColorPickerViewState extends State<ColorPickerView> {
   String text = 'Nothing here yet...';
-  bool isDark = false;
 
   void _onColorChanged(Color color, String property) {
-    setState(() => widget.onColorChanged(color, property));
+    context.read<ThemeProvider>().updateColor(property, color);
   }
 
   void _onBrightnessChanged(bool value) {
     Brightness brightness = value ? Brightness.dark : Brightness.light;
-    setState(() {
-      isDark = value;
-      widget.onBrightnessChanged(brightness);
-    });
+    context.read<ThemeProvider>().updateBrightness(brightness);
   }
 
   void _exportColorScheme() {
-    ColorScheme c = widget.colorScheme;
+    ColorScheme c = context.read<ThemeProvider>().colorScheme;
     String newColorScheme =
         '{"brightness": ${c.brightness.index}, "primary": ${c.primary.value}, "onPrimary": ${c.onPrimary.value}, "secondary": ${c.secondary.value}, "onSecondary": ${c.onSecondary.value}, "surface": ${c.surface.value}, "onSurface": ${c.onSurface.value}, "surfaceContainer": ${c.surfaceContainer.value}}';
     setState(() => text = newColorScheme);
@@ -43,81 +33,81 @@ class _ColorPickerViewState extends State<ColorPickerView> {
 
   @override
   Widget build(BuildContext context) {
-    var themeColors = Theme.of(context).colorScheme;
+    ColorScheme colorScheme = context.watch<ThemeProvider>().colorScheme;
     return ListView(
       children: [
         ListTile(
             title: Text(
               'Primary',
-              style: TextStyle(color: themeColors.onSurface),
+              style: TextStyle(color: colorScheme.onSurface),
             ),
             trailing: ColorTile(
-              initialColor: themeColors.primary,
-              onColorChange: (Color color) =>
-                  setState(() => _onColorChanged(color, 'primary')),
+              color: colorScheme.primary,
+              onColorChange: (Color color) => _onColorChanged(color, 'primary'),
             )),
         ListTile(
             title: Text(
               'onPrimary',
-              style: TextStyle(color: themeColors.onSurface),
+              style: TextStyle(color: colorScheme.onSurface),
             ),
             trailing: ColorTile(
-                initialColor: themeColors.onPrimary,
+                color: colorScheme.onPrimary,
                 onColorChange: (Color color) =>
-                    setState(() => _onColorChanged(color, 'onPrimary')))),
+                    _onColorChanged(color, 'onPrimary'))),
         ListTile(
             title: Text(
               'Secondary',
-              style: TextStyle(color: themeColors.onSurface),
+              style: TextStyle(color: colorScheme.onSurface),
             ),
             trailing: ColorTile(
-                initialColor: themeColors.secondary,
+                color: colorScheme.secondary,
                 onColorChange: (Color color) =>
-                    setState(() => _onColorChanged(color, 'secondary')))),
+                    _onColorChanged(color, 'secondary'))),
         ListTile(
             title: Text(
               'onSecondary',
-              style: TextStyle(color: themeColors.onSurface),
+              style: TextStyle(color: colorScheme.onSurface),
             ),
             trailing: ColorTile(
-                initialColor: themeColors.onSecondary,
+                color: colorScheme.onSecondary,
                 onColorChange: (Color color) =>
-                    setState(() => _onColorChanged(color, 'onSecondary')))),
+                    _onColorChanged(color, 'onSecondary'))),
         ListTile(
             title: Text(
               'Background',
-              style: TextStyle(color: themeColors.onSurface),
+              style: TextStyle(color: colorScheme.onSurface),
             ),
             trailing: ColorTile(
-                initialColor: themeColors.surface,
+                color: colorScheme.surface,
                 onColorChange: (Color color) =>
-                    setState(() => _onColorChanged(color, 'surface')))),
+                    _onColorChanged(color, 'surface'))),
         ListTile(
             title: Text(
               'onBackground',
-              style: TextStyle(color: themeColors.onSurface),
+              style: TextStyle(color: colorScheme.onSurface),
             ),
             trailing: ColorTile(
-                initialColor: themeColors.onSurface,
+                color: colorScheme.onSurface,
                 onColorChange: (Color color) =>
-                    setState(() => _onColorChanged(color, 'onSurface')))),
+                    _onColorChanged(color, 'onSurface'))),
         ListTile(
             title: Text(
               'Note Background',
-              style: TextStyle(color: themeColors.onSurface),
+              style: TextStyle(color: colorScheme.onSurface),
             ),
             trailing: ColorTile(
-                initialColor: themeColors.surfaceContainer,
-                onColorChange: (Color color) => setState(
-                    () => _onColorChanged(color, 'surfaceContainer')))),
+                color: colorScheme.surfaceContainer,
+                onColorChange: (Color color) =>
+                    _onColorChanged(color, 'surfaceContainer'))),
         ListTile(
             title: Text(
               'Is this a dark theme?',
-              style: TextStyle(color: themeColors.onSurface),
+              style: TextStyle(color: colorScheme.onSurface),
             ),
             trailing: Switch(
-              activeColor: themeColors.primary.withOpacity(0.8),
-              value: isDark,
+              activeColor: colorScheme.primary.withOpacity(0.8),
+              value: context.watch<ThemeProvider>().colorScheme.brightness ==
+                  Brightness.dark,
               onChanged: (value) => _onBrightnessChanged(value),
             )),
         const Divider(),
@@ -127,9 +117,9 @@ class _ColorPickerViewState extends State<ColorPickerView> {
             child: ElevatedButton(
               style: ButtonStyle(
                   foregroundColor:
-                      WidgetStatePropertyAll<Color>(themeColors.onSecondary),
+                      WidgetStatePropertyAll<Color>(colorScheme.onSecondary),
                   backgroundColor:
-                      WidgetStatePropertyAll<Color>(themeColors.secondary)),
+                      WidgetStatePropertyAll<Color>(colorScheme.secondary)),
               onPressed: _exportColorScheme,
               child: const Text('Export Theme'),
             ),
@@ -141,7 +131,7 @@ class _ColorPickerViewState extends State<ColorPickerView> {
           textAlign: TextAlign.center,
         )),
         Card(
-          color: themeColors.surfaceContainer,
+          color: colorScheme.surfaceContainer,
           child: Padding(
               padding: const EdgeInsets.all(15.0),
               child: Stack(
@@ -154,7 +144,7 @@ class _ColorPickerViewState extends State<ColorPickerView> {
                         child: InkWell(
                           child: Icon(
                             Icons.copy_rounded,
-                            color: themeColors.onSurface,
+                            color: colorScheme.onSurface,
                           ),
                           onTap: () async {
                             await Clipboard.setData(ClipboardData(text: text));
