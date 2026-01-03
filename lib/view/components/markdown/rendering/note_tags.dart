@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:markdown_widget/markdown_widget.dart';
+import '../markdown_widget/markdown_widget.dart';
 import 'package:markdown/markdown.dart' as m;
 
 const _noteTag = 'noteTag';
@@ -32,29 +32,20 @@ class NoteTagNode extends SpanNode {
             children: [
               Text(
                 noteTagId,
-                style: parentStyle?.copyWith(
-                      foreground: Paint()
-                        ..style = PaintingStyle.stroke
-                        ..strokeWidth = 1.2
-                        ..color = tagTextColor ?? defaultTextColor,
-                    ) ??
-                    config.p.textStyle.copyWith(
-                      color: tagTextColor ?? defaultTextColor,
-                      decoration: TextDecoration.underline,
-                      decorationColor: tagTextColor ?? defaultTextColor,
-                    ),
+                style: config.p.textStyle.merge(parentStyle?.copyWith(
+                  foreground: Paint()
+                    ..style = PaintingStyle.stroke
+                    ..strokeWidth = 1.2
+                    ..color = tagTextColor ?? defaultTextColor,
+                )),
               ),
               Text(
                 noteTagId,
-                style: parentStyle?.copyWith(
-                      color: tagTextColor ?? defaultTextColor,
-                      decoration: TextDecoration.underline,
-                      decorationColor: tagTextColor ?? defaultTextColor,
-                    ) ??
-                    config.p.textStyle.copyWith(
-                      decoration: TextDecoration.underline,
-                      decorationColor: tagTextColor ?? defaultTextColor,
-                    ),
+                style: config.p.textStyle.merge(parentStyle?.copyWith(
+                  color: tagTextColor ?? defaultTextColor,
+                  decoration: TextDecoration.underline,
+                  decorationColor: tagTextColor ?? defaultTextColor,
+                )),
               ),
             ],
           )),
@@ -63,7 +54,7 @@ class NoteTagNode extends SpanNode {
 }
 
 class NoteTagSyntax extends m.InlineSyntax {
-  NoteTagSyntax() : super(r'#\w+');
+  NoteTagSyntax() : super(r'(?<!\S)(#[\w-]+)(?!\S)');
 
   @override
   bool onMatch(m.InlineParser parser, Match match) {

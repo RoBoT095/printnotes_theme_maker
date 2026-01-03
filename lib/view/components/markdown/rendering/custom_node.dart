@@ -5,10 +5,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
-import 'package:markdown_widget/markdown_widget.dart';
 import 'package:markdown/markdown.dart' as m;
 
 import 'html_support.dart';
+import '../markdown_widget/markdown_widget.dart';
 
 class CustomTextNode extends ElementNode {
   final String text;
@@ -55,9 +55,9 @@ class CustomTextNode extends ElementNode {
       ),
       parentStyle: parentStyle,
     );
-    spans.forEach((element) {
+    for (var element in spans) {
       isTable = false;
       accept(element);
-    });
+    }
   }
 }

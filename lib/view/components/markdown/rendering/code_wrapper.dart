@@ -19,7 +19,6 @@ class CodeWrapperWidget extends StatefulWidget {
   final String text;
   final String language;
   final bool? hideCodeButtons;
-  final bool? isDark = false;
 
   @override
   State<CodeWrapperWidget> createState() => _PreWrapperState();
@@ -37,7 +36,7 @@ class _PreWrapperState extends State<CodeWrapperWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).colorScheme.brightness == Brightness.dark;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Stack(
       children: [
         widget.child,

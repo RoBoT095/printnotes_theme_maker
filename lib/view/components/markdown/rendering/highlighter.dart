@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:markdown_widget/markdown_widget.dart';
+import '../markdown_widget/markdown_widget.dart';
 import 'package:markdown/markdown.dart' as m;
 
 const _highlighterTag = 'highlighter';
@@ -15,10 +15,8 @@ class HighlighterNode extends SpanNode {
   @override
   InlineSpan build() => TextSpan(
         text: highlightId,
-        style: parentStyle?.copyWith(
-                backgroundColor: const Color.fromARGB(150, 255, 214, 64)) ??
-            config.p.textStyle.copyWith(
-                backgroundColor: const Color.fromARGB(150, 255, 214, 64)),
+        style: config.p.textStyle.merge(parentStyle?.copyWith(
+            backgroundColor: const Color.fromARGB(148, 255, 225, 118))),
       );
 }
 
