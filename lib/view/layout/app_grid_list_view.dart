@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:markdown_widget/markdown_widget.dart';
+import 'package:printnotes_theme_maker/view/components/markdown/markdown_widget/markdown_widget.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import 'package:printnotes_theme_maker/providers/settings_provider.dart';
@@ -12,6 +12,8 @@ class GridListView extends StatelessWidget {
   final List<Map<String, String>> items;
 
   Widget _buildGridItem(BuildContext context, int index) {
+    final mdConfig = theMarkdownConfigs(context, hideCodeButtons: true);
+    final mdGenerator = theMarkdownGenerators(context, textScale: 0.95);
     final item = items[index];
     final isDirectory = item['type'] == 'folder';
     final name = item['name'].toString();
@@ -49,9 +51,8 @@ class GridListView extends StatelessWidget {
                   MarkdownBlock(
                     selectable: false,
                     data: item['text'].toString(),
-                    config: theMarkdownConfigs(context, hideCodeButtons: true),
-                    generator: theMarkdownGenerators(context,
-                        textScale: 0.95, useLatex: true),
+                    config: mdConfig,
+                    generator: mdGenerator,
                   ),
                 ],
               )),

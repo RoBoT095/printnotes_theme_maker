@@ -16,13 +16,8 @@ class NotesDisplay extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
         foregroundColor: Theme.of(context).colorScheme.onPrimary,
-        title: const Text('All Notes'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.refresh),
-            onPressed: () {},
-          )
-        ],
+        centerTitle: true,
+        title: const Text('Notes'),
       ),
       body: context.watch<SettingsProvider>().layout == 'tree'
           ? TreeLayoutView(items: items)

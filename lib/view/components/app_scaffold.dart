@@ -33,7 +33,8 @@ class MainScaffold extends StatelessWidget {
               child: const Row(
                 children: [
                   Icon(Icons.grid_view),
-                  Text(' Switch Layout'),
+                  SizedBox(width: 5),
+                  Text('Change Layout'),
                 ],
               )),
         ],

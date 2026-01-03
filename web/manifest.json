@@ -1,11 +1,11 @@
 {
   "name": "printnotes_theme_maker",
-  "short_name": "printnotes_theme_maker",
+  "short_name": "Print(Notes) Theme Designer",
   "start_url": ".",
   "display": "standalone",
   "background_color": "#0175C2",
   "theme_color": "#0175C2",
-  "description": "A new Flutter project.",
+  "description": "Webpage for designing themes to use the Print(Notes) app",
   "orientation": "portrait-primary",
   "prefer_related_applications": false,
   "icons": [
